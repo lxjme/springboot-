@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>学生信息管理系统登录</title>
+</head>
+
+<body>
+    <div align="center" style="padding-top: 50px;">
+        <form action="login" method="post" onsubmit="return false;">
+            <table width="740" height="500" background="images/login.jpg">
+                <tr height="180">
+                    <td colspan="4"></td>
+                </tr>
+                <tr height="10">
+                    <td width="40%"></td>
+                    <td width="10%">用户名：</td>
+                    <td><input type="text" value="" name="user_name" id="userName" /></td>
+                    <td width="30%"></td>
+                </tr>
+                <tr height="10">
+                    <td width="40%"></td>
+                    <td width="10%">密 码：</td>
+                    <td><input type="password" value="" name="password" id="password" /></td>
+                    <td width="30%"></td>
+                </tr>
+                <tr height="10">
+                    <td width="40%"></td>
+                    <td width="10%"><input type="submit" id="submitForm" value="登录" /></td>
+                    <td><input type="button" value="重置"  onclick="resetValue()" /></td>
+                    <td width="30%"></td>
+                </tr>
+                <tr height="10">
+                    <td width="40%"></td>
+                    <td colspan="3">
+                        <font color="red" id="tip_msg"></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript">
+    function resetValue() {
+        document.getElementById("userName").value = "";
+        document.getElementById("password").value = "";
+    }
+    $(document).ready(function(e) {
+        $('#submitForm').on('click', function(e) {
+            $.ajax({
+                type: 'post',
+                url: '/loginProcess',
+                data: $('form').serializeArray(),
+                cache: false,
+                async: false,
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#tip_msg').text("正在登录...");
+                },
+                success: function (res_data) {
+                    if(res_data.status == 1) {
+                        window.location.href = res_data.url;
+                    } else {
+                        $('#tip_msg').text(res_data.msg);
+                    }
+                }
+            })
+        })
+    });
+</script>
+
+</html>
