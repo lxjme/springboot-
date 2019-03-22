@@ -14,10 +14,6 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(HttpSession session,Model m) {
-        if(session.getAttribute("user_name") == null) {
-            return "login";
-        }
-
         m.addAttribute("user_name", session.getAttribute("user_name"));
         return "index";
     }
@@ -36,5 +32,15 @@ public class IndexController {
     @GetMapping("/gradeManage")
     public String gradeManage() {
         return "grade_manage";
+    }
+
+
+    /**
+     * 退出
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("user_name");
+        return "redirect:/login";
     }
 }

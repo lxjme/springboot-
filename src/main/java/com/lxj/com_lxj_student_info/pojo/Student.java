@@ -50,8 +50,8 @@ public class Student {
     @Transient
     private String gradeName;
 
-    
-
+    @Transient
+    private String dateTime;
 
     /**
      * @return the stuId
@@ -179,6 +179,23 @@ public class Student {
         this.gradeName = gradeName;
     }
 
+    /**
+     * @return the dateTime
+     */
+    public String getDateTime() {
+        return dateTime;
+    }
 
+    /**
+     * @param dateTime the dateTime to set
+     */
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    
+
+
+    
     
 }

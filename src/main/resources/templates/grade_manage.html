@@ -32,7 +32,7 @@
             $.messager.confirm("系统提示", "您确认要删掉这<font color=red>" + selectedRows.length + "</font>条数据吗？", function (r) {
                 if (r) {
                     $.post("gradeDelete", { delIds: ids }, function (result) {
-                        if (result.success) {
+                        if (result.status == 1) {
                             $.messager.alert("系统提示", "您已成功删除<font color=red>" + result.delNums + "</font>条数据！");
                             $("#dg").datagrid("reload");
                         } else {
@@ -78,8 +78,9 @@
                 onSubmit: function () {
                     return $(this).form("validate");
                 },
-                success: function (result) {
-                    if (result.errorMsg) {
+                success: function (res) {
+                    var result = $.parseJSON(res);
+                    if (result.status != "1") {
                         $.messager.alert("系统提示", result.errorMsg);
                         return;
                     } else {
